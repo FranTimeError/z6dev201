@@ -11,4 +11,4 @@
          shell: /bin/bash
          state: present
          create_home: yes
-       loop: "{{ users }}"
+       loop: "{{ list_of_users }}"
