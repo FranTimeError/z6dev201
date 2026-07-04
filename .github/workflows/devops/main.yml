@@ -1,0 +1,11 @@
+ - hosts: PROD_SRV
+   gather_facts: false
+
+   tasks:
+     - name: Create users
+       ansible.builtin.user:
+         name: "{{ item.username }}"
+         password: "{{ item.password | password_hash('sha512') }}"
+         shell: /bin/bash
+         create_home: yes
+       loop: "{{ lookup('file', 'users.yml') | from_yaml | json_query('list_of_users') }}"

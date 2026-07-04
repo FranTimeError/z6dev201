@@ -1,0 +1,8 @@
+all:
+  children:
+    deployment_servers:
+      hosts:
+        PROD_SRV:
+          ansible_host: 185.2.102.70
+          ansible_user: root
+          ansible_password: "{{ lookup('ansible.builtin.env', 'PROD_SRV_PASSWORD') }}"

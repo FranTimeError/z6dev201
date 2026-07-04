@@ -1,0 +1,22 @@
+name: CreateUsers
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  CreateUsers-jobs:
+    runs-on: ubuntu-latest
+    env:
+      PROD_SRV_PASSWORD: ${{ secrets.PROD_SRV_PASSWORD }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6   
+
+      - name: Run Ansible to create users     
+        shell: bash      
+        run: |
+          cd .github/workflows/devops
+          ansible-playbook -i inventory.yml main.yml
