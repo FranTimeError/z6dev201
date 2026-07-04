@@ -1,5 +1,7 @@
  - hosts: PROD_SRV
    gather_facts: false
+   vars_files:
+     - ../../../users.yml
 
    tasks:
      - name: Create users
@@ -7,5 +9,6 @@
          name: "{{ item.username }}"
          password: "{{ item.password | password_hash('sha512') }}"
          shell: /bin/bash
+         state: present
          create_home: yes
-       loop: "{{ lookup('file', '../../../users.yml') | from_yaml | json_query('list_of_users') }}"
+       loop: "{{ users }}"
